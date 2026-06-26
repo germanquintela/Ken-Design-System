@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import * as stylex from '@stylexjs/stylex';
 import { Box, Card, LinkButton, Separator, Text } from '@ken/react';
 import { AppWrapper } from '@/components/AppWrapper';
+import { BLUR_PLACEHOLDER } from '@/lib/blurPlaceholder';
 import { styles } from './Home.styles';
 import Link from 'next/link';
 
@@ -82,6 +83,8 @@ export function Home() {
               height={917}
               sizes="100vw"
               priority
+              placeholder="blur"
+              blurDataURL={BLUR_PLACEHOLDER}
               style={{ width: '100%', height: 'auto', display: 'block' }}
             />
           </Card>
@@ -111,6 +114,8 @@ export function Home() {
                       width={1918}
                       height={917}
                       sizes="(max-width: 640px) 100vw, 400px"
+                      placeholder="blur"
+                      blurDataURL={BLUR_PLACEHOLDER}
                       {...stylex.props(styles.media)}
                     />
                   </Box>

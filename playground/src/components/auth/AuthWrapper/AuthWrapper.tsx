@@ -1,6 +1,7 @@
 import type * as React from 'react';
 import Image from 'next/image';
 import { Box, Text, Logo, Separator } from '@ken/react';
+import { BLUR_PLACEHOLDER } from '@/lib/blurPlaceholder';
 
 /**
  * Shared chrome for the auth screens (login / register): the two-column
@@ -50,6 +51,8 @@ export function AuthWrapper({
           alt=""
           fill
           priority
+          placeholder="blur"
+          blurDataURL={BLUR_PLACEHOLDER}
           style={{ objectFit: 'cover', objectPosition: 'bottom right' }}
         />
       </Box>
