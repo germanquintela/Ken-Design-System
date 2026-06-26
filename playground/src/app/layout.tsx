@@ -7,10 +7,17 @@ import '@ken/react/fonts.css';
 import './globals.css';
 import { ChatProvider } from '@/hooks/ChatProvider';
 
+const TITLE = 'Ken Playground';
+const DESCRIPTION =
+  'An LLM-safe recreation of the Ramp design system, built with StyleX.';
+// Absolute base so the OG/Twitter image resolves to a full URL — crawlers
+// (and Vercel's link unfurls) reject relative image paths.
+const SITE_URL = 'https://kenplayground.vercel.app';
+
 export const metadata: Metadata = {
-  title: 'Ken Playground',
-  description:
-    'An LLM-safe recreation of the Ramp design system, built with StyleX.',
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
   icons: {
     icon: [
       { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
@@ -20,6 +27,28 @@ export const metadata: Metadata = {
     apple: '/favicon/apple-touch-icon.png',
   },
   manifest: '/favicon/site.webmanifest',
+  openGraph: {
+    type: 'website',
+    siteName: TITLE,
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    locale: 'en_US',
+    images: [
+      {
+        url: '/og.png',
+        width: 600,
+        height: 315,
+        alt: 'Ken — an LLM-safe recreation of the Ramp design system',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/og.png'],
+  },
 };
 
 export default function RootLayout({
