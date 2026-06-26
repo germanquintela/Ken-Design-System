@@ -1,0 +1,1 @@
+export { DocImage } from './DocImage';

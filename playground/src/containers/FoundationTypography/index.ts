@@ -1,0 +1,1 @@
+export { FoundationTypography } from './FoundationTypography';

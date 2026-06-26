@@ -1,0 +1,47 @@
+{
+  "name": "@ken/react",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "chromatic": "chromatic --storybook-build-dir=storybook-static --exit-zero-on-changes",
+    "test": "vitest run"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./theme": "./theme/index.ts",
+    "./theme/*": "./theme/*.ts",
+    "./fonts.css": "./fonts.css"
+  },
+  "dependencies": {
+    "@base-ui-components/react": "1.0.0-rc.0",
+    "@radix-ui/react-dialog": "^1.1.17",
+    "@radix-ui/react-dropdown-menu": "^2.1.18",
+    "@radix-ui/react-popover": "^1.1.17",
+    "@radix-ui/react-select": "^2.3.1",
+    "@radix-ui/react-tabs": "^1.1.15",
+    "@radix-ui/react-tooltip": "^1.2.10",
+    "cmdk": "^1.1.1",
+    "lucide-react": "^1.21.0",
+    "prism-react-renderer": "^2.4.1",
+    "react-day-picker": "^10.0.1"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "0.19.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/plugin-syntax-jsx": "^7.29.7",
+    "@babel/plugin-syntax-typescript": "^7.29.7",
+    "@storybook/react-vite": "^9.1.20",
+    "@stylexjs/babel-plugin": "0.19.0",
+    "chromatic": "^17.7.1",
+    "storybook": "^9.1.20",
+    "vite": "^6.4.3",
+    "vitest": "^4.1.9"
+  }
+}

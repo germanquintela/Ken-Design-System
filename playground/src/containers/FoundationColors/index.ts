@@ -1,0 +1,1 @@
+export { FoundationColors } from './FoundationColors';

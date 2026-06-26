@@ -1,0 +1,52 @@
+/* The StyleX SWC plugin injects the generated atomic CSS automatically.
+   Below is just a minimal reset — element-level selectors have lower
+   specificity than StyleX's single-class atoms, so component styles win. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    var(--font-lausanne), "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Ramp's stylistic set, applied brand-wide (kept out of per-component tokens). */
+  font-feature-settings: "ss01";
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Mobile gate — the authenticated app shell ([data-app-shell]) mounts only
+   after login, so this banner is scoped there: small screens get a fixed
+   notice that the playground is built for desktop, while the auth screens
+   (which already adapt) stay clean. Pure CSS, ::before content, no JS. */
+@media (max-width: 768px) {
+  [data-app-shell]::before {
+    content: "This app is designed for desktop. For the best experience, open it on a larger screen.";
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 9999;
+    padding: 12px 20px;
+    background: #1c1c1c;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 1px 8px rgb(0 0 0 / 25%);
+  }
+}

@@ -1,0 +1,1 @@
+export { DocsSkeleton } from './DocsSkeleton';

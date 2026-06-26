@@ -1,0 +1,14 @@
+packages:
+  - 'ken'
+  - 'ai'
+  - 'playground'
+
+# pnpm 11 reads linker config here (not .npmrc). Hoisted = flat node_modules,
+# matching the layout StyleX's NAPI compiler is validated against, and letting
+# the @ken/react workspace source resolve react/@types/react during builds.
+nodeLinker: hoisted
+
+allowBuilds:
+  '@swc/core': true
+  esbuild: true
+  sharp: true

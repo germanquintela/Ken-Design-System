@@ -1,0 +1,12 @@
+/* The Lausanne @font-face + --font-lausanne var now come from the shared
+   `../fonts.css` (imported in preview.tsx) — the SAME file consumers import via
+   `@ken/react/fonts.css`, so the workbench renders exactly like a real app.
+   This file only carries the workbench's body defaults. */
+body {
+  font-family:
+    var(--font-lausanne), "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01";
+}

@@ -1,0 +1,22 @@
+<!-- .storybook/manager-head.html -->
+<style>
+  /* Hide the "Create a New Story" sidebar button */
+  [aria-label='Create a new story'] {
+    display: none !important;
+  }
+
+  /* Fallback selector for older versions of Storybook */
+  .search-field+div button {
+    display: none !important;
+  }
+
+  /* Pin the brand wordmark to the left. Storybook's brand <a> shrinks to its
+     content and gets centered by its parent, so width:100% on the inner span
+     does nothing — we have to widen the <a> itself. Matched via :has() on the
+     wordmark's unique viewBox so we don't depend on emotion class names. */
+  a:has(> span > svg[viewBox='0 0 243 65']) {
+    display: flex !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+  }
+</style>

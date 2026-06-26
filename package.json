@@ -1,0 +1,20 @@
+{
+  "name": "ramp-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.3.0",
+  "scripts": {
+    "dev": "pnpm --filter playground dev",
+    "build": "pnpm --filter playground build",
+    "start": "pnpm --filter playground start",
+    "test": "pnpm --filter @ken/ai test && pnpm --filter playground test",
+    "storybook": "pnpm --filter @ken/react storybook",
+    "build-storybook": "pnpm --filter @ken/react build-storybook",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "check": "biome check --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.1"
+  }
+}

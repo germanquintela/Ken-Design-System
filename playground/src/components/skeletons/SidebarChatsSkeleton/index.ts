@@ -1,0 +1,1 @@
+export { SidebarChatsSkeleton } from './SidebarChatsSkeleton';

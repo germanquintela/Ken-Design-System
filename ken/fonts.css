@@ -1,0 +1,19 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Lausanne";
+  src:
+    url("./fonts/Lausanne-Regular.woff2") format("woff2"),
+    url("./fonts/Lausanne-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-lausanne: "Lausanne";
+}

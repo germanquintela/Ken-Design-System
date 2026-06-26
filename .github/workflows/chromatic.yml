@@ -1,0 +1,49 @@
+name: Chromatic
+
+# Publishes Ken's Storybook to Chromatic for visual review.
+# - push to main: establishes/updates the baseline.
+# - pull_request: snapshots the branch and posts a visual-review check on the PR.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer push to the same branch supersedes an in-flight run.
+concurrency:
+  group: chromatic-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Chromatic walks git history to find each commit's baseline.
+          fetch-depth: 0
+
+      # action-setup reads the pnpm version from the root package.json
+      # "packageManager" field (pnpm@11.3.0).
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Build the static Storybook ourselves (the StyleX Babel pipeline +
+      # workspace source need a real pnpm install), then hand the prebuilt
+      # directory to Chromatic so its action only uploads — never re-installs.
+      - run: pnpm --filter @ken/react build-storybook
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ken
+          storybookBuildDir: storybook-static
+          # Visual changes don't fail the check — you review/approve them in the
+          # Chromatic UI. Flip to false to make unreviewed changes block merge.
+          exitZeroOnChanges: true
