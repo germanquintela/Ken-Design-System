@@ -42,7 +42,7 @@ export const surface = stylex.create({
     // underlines it by default; <button> doesn't. Reset here so every element
     // looks the same.
     textDecorationLine: 'none',
-    borderRadius: radius.control,
+    borderRadius: radius.full,
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'transparent', // variants own any visible border colour
