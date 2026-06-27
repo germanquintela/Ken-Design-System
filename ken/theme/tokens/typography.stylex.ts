@@ -43,6 +43,7 @@ export const fontSize = stylex.defineVars({
  * designed leading, so the pair is always used together. Unitless.
  */
 export const lineHeight = stylex.defineVars({
+  normal: 'normal',
   micro: '1.2',
   footnote: '1.46',
   caption: '1.46',

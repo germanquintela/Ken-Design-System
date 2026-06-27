@@ -34,7 +34,7 @@ export const shell = stylex.create({
     fontFamily: font.sans,
     fontWeight: fontWeight.regular, // Lausanne has no Medium cut; emphasis is colour
     fontSize: fontSize.footnote,
-    lineHeight: lineHeight.footnote,
+    lineHeight: lineHeight.normal, // chips are fixed-height + flex-centred; font-metric default avoids glyph clipping
     whiteSpace: 'nowrap',
     borderRadius: radius.full, // pill
     borderWidth: '1px',
