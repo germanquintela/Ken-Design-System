@@ -21,11 +21,14 @@ export function Login() {
         email,
         password,
       });
-      if (error) setError(error.message);
-      else router.push('/');
+      if (error) {
+        setError(error.message);
+        setBusy(false);
+        return;
+      }
+      router.push('/');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong.');
-    } finally {
       setBusy(false);
     }
   }

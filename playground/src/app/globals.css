@@ -30,6 +30,20 @@ a {
   text-decoration: none;
 }
 
+/* Brand text selection — lime highlight, obsidian ink (Ramp's accent + ink).
+   Kept as raw hex here like the mobile gate below; StyleX's defineVars compile
+   to hashed custom-property names, so semantic tokens aren't referenceable from
+   this plain-CSS reset. */
+::selection {
+  background: #e4f222;
+  color: #0c0a08;
+}
+
+::-moz-selection {
+  background: #e4f222;
+  color: #0c0a08;
+}
+
 /* Mobile gate — the authenticated app shell ([data-app-shell]) mounts only
    after login, so this banner is scoped there: small screens get a fixed
    notice that the playground is built for desktop, while the auth screens
@@ -38,15 +52,18 @@ a {
   [data-app-shell]::before {
     content: "This app is designed for desktop. For the best experience, open it on a larger screen.";
     position: fixed;
-    inset: 0 0 auto 0;
+    inset: 0;
     z-index: 9999;
-    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 32px;
     background: #1c1c1c;
     color: #fff;
-    font-size: 13px;
-    line-height: 1.45;
+    font-size: 15px;
+    line-height: 1.5;
     font-weight: 500;
     text-align: center;
-    box-shadow: 0 1px 8px rgb(0 0 0 / 25%);
+    text-wrap: balance;
   }
 }
