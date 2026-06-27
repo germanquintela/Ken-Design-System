@@ -26,7 +26,7 @@ export function AuthWrapper({
         flex="1"
         justify="center"
         align="center"
-        p={{ base: 'space6', md: 'space24' }}
+        p={{ base: 'space8', md: 'space24' }}
         maxWidth="space160"
       >
         <Box direction="column" gap="space10" width="full">
