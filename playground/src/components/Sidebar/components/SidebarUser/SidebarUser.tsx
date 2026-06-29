@@ -1,68 +1,61 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
-import { Box, Avatar, Skeleton, Text, IconButton } from '@ken/react';
+import { Box, Avatar, Skeleton, Text } from '@ken/react';
 import { getBrowserSupabase } from '@/lib/supabase/client';
-import { LogOut } from 'lucide-react';
 
 /**
- * SidebarUser — the aside footer: the signed-in user's avatar + email and a
- * logout button. App-level (it reads the Supabase session and signs out), self-
- * contained: it fetches its own user on mount rather than threading email through
- * AppWrapper, which stays a generic title + children shell.
+ * SidebarUser — the aside footer: the visitor's avatar + name/company. App-level
+ * (reads the Supabase session), self-contained: it fetches its own user on mount
+ * rather than threading identity through AppWrapper, which stays a generic title
+ * + children shell.
  */
 export function SidebarUser() {
-  const router = useRouter();
-  const [email, setEmail] = React.useState<string | null>(null);
-  const [busy, setBusy] = React.useState(false);
+  const [name, setName] = React.useState<string | null>(null);
+  const [company, setCompany] = React.useState<string | null>(null);
+  const [loaded, setLoaded] = React.useState(false);
 
   React.useEffect(() => {
     let active = true;
     getBrowserSupabase()
       .auth.getUser()
       .then(({ data }) => {
-        if (active) setEmail(data.user?.email ?? null);
+        if (!active) return;
+        const meta = data.user?.user_metadata as
+          | { name?: string; company?: string }
+          | undefined;
+        setName(meta?.name ?? '');
+        setCompany(meta?.company ?? '');
+        setLoaded(true);
       });
     return () => {
       active = false;
     };
   }, []);
 
-  async function onLogout() {
-    setBusy(true);
-    try {
-      await getBrowserSupabase().auth.signOut();
-      router.push('/login');
-      router.refresh(); // drop server-rendered, now-stale authed content
-    } finally {
-      setBusy(false);
-    }
-  }
-
   return (
-    <Box direction="row" justify="between" gap="space3">
-      <Box align="center" gap="space2" minWidth={0}>
-        {email === null ? (
-          <Skeleton variant="circle" size="md" />
+    <Box align="center" gap="space2" width="full" minWidth={0}>
+      {!loaded ? (
+        <Skeleton variant="circle" size="md" />
+      ) : (
+        <Avatar name={name || '?'} size="md" />
+      )}
+      <Box direction="column" flex="1" minWidth={0}>
+        {!loaded ? (
+          <Skeleton variant="text" lines={2} />
         ) : (
-          <Avatar name={email} size="md" />
+          <>
+            <Text size="footnote" truncate>
+              {name ?? ''}
+            </Text>
+            {company ? (
+              <Text size="footnote" tone="secondary" truncate>
+                {company}
+              </Text>
+            ) : null}
+          </>
         )}
-        <Box minWidth={0}>
-          <Text size="footnote" tone="secondary" truncate>
-            {email ?? ''}
-          </Text>
-        </Box>
       </Box>
-      <IconButton
-        variant="ghost"
-        size="sm"
-        aria-label="Log out"
-        disabled={busy}
-        {...{ onClick: onLogout }}
-      >
-        <LogOut size={16} />
-      </IconButton>
     </Box>
   );
 }

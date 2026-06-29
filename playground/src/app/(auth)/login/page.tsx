@@ -1,5 +1,5 @@
-import { Login } from '@/containers/Login';
+import { Onboarding } from '@/containers/Onboarding';
 
 export default function LoginPage() {
-  return <Login />;
+  return <Onboarding />;
 }

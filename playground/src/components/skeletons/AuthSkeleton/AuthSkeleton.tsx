@@ -4,7 +4,7 @@ import * as s from '../skeletons.styles';
 
 /**
  * Auth fallback (`app/(auth)/loading.tsx`). The (auth) group would otherwise
- * inherit the root full-shell skeleton — wrong, since login/register use the
+ * inherit the root full-shell skeleton — wrong, since onboarding uses the
  * two-column AuthWrapper, not the app shell. This mirrors AuthWrapper's left
  * column (wordmark + title + divider + form) so a logout → /login hop stays calm.
  */

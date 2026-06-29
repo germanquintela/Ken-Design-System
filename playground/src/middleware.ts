@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 
-const AUTH_ROUTES = new Set(['/login', '/register']);
+const AUTH_ROUTES = new Set(['/login']);
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -44,7 +44,7 @@ export async function middleware(request: NextRequest) {
 
   // Nothing in the playground is reachable without a session — send guests to login.
   if (!user && !isAuthRoute) return redirectTo('/login', request, response);
-  // Already signed in? The login/register screens are pointless — go to the builder.
+  // Already signed in? The onboarding screen is pointless — go to the builder.
   if (user && isAuthRoute) return redirectTo('/', request, response);
 
   return response;

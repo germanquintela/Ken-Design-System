@@ -1,14 +1,15 @@
 'use client';
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { Box, FormInput, Button, Text, LinkButton } from '@ken/react';
+import { Box, FormInput, Button, Text } from '@ken/react';
 import { getBrowserSupabase } from '@/lib/supabase/client';
+import { startAnonymousSession } from '@/services/session';
 import { AuthWrapper } from '@/components/auth/AuthWrapper';
 
-export function Register() {
+export function Onboarding() {
   const router = useRouter();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [company, setCompany] = React.useState('');
   const [error, setError] = React.useState<string | null>(null);
   const [busy, setBusy] = React.useState(false);
 
@@ -17,15 +18,7 @@ export function Register() {
     setError(null);
     setBusy(true);
     try {
-      const { error } = await getBrowserSupabase().auth.signUp({
-        email,
-        password,
-      });
-      if (error) {
-        setError(error.message);
-        setBusy(false);
-        return;
-      }
+      await startAnonymousSession(getBrowserSupabase(), { name, company });
       router.push('/');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong.');
@@ -34,25 +27,25 @@ export function Register() {
   }
 
   return (
-    <AuthWrapper title="Create an account">
+    <AuthWrapper title="Let's get started">
       <Box as="form" direction="column" gap="space10" {...{ onSubmit }}>
         <Box direction="column" gap="space4">
           <FormInput
-            label="Email"
-            type="email"
-            value={email}
+            label="Your name"
+            required
+            value={name}
             {...{
               onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value),
+                setName(e.target.value),
             }}
           />
           <FormInput
-            label="Password"
-            type="password"
-            value={password}
+            label="Where you work"
+            required
+            value={company}
             {...{
               onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value),
+                setCompany(e.target.value),
             }}
           />
         </Box>
@@ -61,14 +54,9 @@ export function Register() {
             {error}
           </Text>
         )}
-        <Box direction="column" gap="space2">
-          <Button type="submit" size="lg" loading={busy}>
-            Create account
-          </Button>
-          <LinkButton href="/login" variant="ghost" size="lg">
-            I already have an account
-          </LinkButton>
-        </Box>
+        <Button type="submit" size="lg" loading={busy}>
+          Continue
+        </Button>
       </Box>
     </AuthWrapper>
   );
